@@ -1,3 +1,4 @@
+
 import 'package:chakre_pdf_viewer/chakre_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   changePDF(value) async {
     setState(() => _isLoading = true);
     if (value == 1) {
-      document = await PDFDocument.fromAsset('assets/sample2.pdf');
+      document = await PDFDocument.fromAsset('assets/invoice_protected.pdf');
     } else if (value == 2) {
       document = await PDFDocument.fromURL(
           "https://www.africau.edu/images/default/sample.pdf");
@@ -56,6 +57,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Text("ASdasd"),
+        onPressed: () async {
+          // PasswordProtectedPdfChecker checker = PasswordProtectedPdfChecker();
+          // bool result = await checker.isPDFPasswordProtected(bytes);
+        },
+      ),
       drawer: Drawer(
         child: Column(
           children: <Widget>[

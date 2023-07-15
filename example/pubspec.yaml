@@ -28,3 +28,4 @@ flutter:
     - assets/sample.pdf
     - assets/sample2.pdf
     - assets/sample3.pdf
+    - assets/invoice-protected.pdf

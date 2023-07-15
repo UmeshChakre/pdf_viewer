@@ -131,7 +131,7 @@ class _PDFViewerState extends State<PDFViewer> {
     }
   }
 
-  _loadPage() async {
+_loadPage() async {
     var num = _pageNumber!;
     if (_pages![num - 1] != null) return;
     if (!widget.lazyLoad) return;

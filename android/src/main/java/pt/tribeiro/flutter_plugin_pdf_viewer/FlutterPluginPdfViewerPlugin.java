@@ -58,11 +58,11 @@ public class FlutterPluginPdfViewerPlugin implements MethodChannel.MethodCallHan
 
     public void onAttachedToEngine(Context applicationContext, BinaryMessenger messenger) {
         synchronized (initializationLock) {
-            if(flutterChannel != null) {
+            if (flutterChannel != null) {
                 return;
             }
             this.context = applicationContext;
-            flutterChannel = new MethodChannel(messenger,"flutter_plugin_pdf_viewer");
+            flutterChannel = new MethodChannel(messenger, "flutter_plugin_pdf_viewer");
             flutterChannel.setMethodCallHandler(this);
         }
     }
@@ -119,15 +119,26 @@ public class FlutterPluginPdfViewerPlugin implements MethodChannel.MethodCallHan
                                 clearCacheDir();
                                 mainThreadHandler.post(new Runnable() {
                                     @Override
-                                    public  void run() {
+                                    public void run() {
                                         result.success("clearCache");
                                     }
                                 });
                                 break;
+
+                            // case "checkPasswordProtectedPDF":
+
+                            // boolean status = checkPasswordProtectedPDF(call);
+                            // mainThreadHandler.post(new Runnable() {
+                            // @Override
+                            // public void run() {
+                            // result.success(status);
+                            // }
+                            // });
+                            // break;
                             default:
                                 mainThreadHandler.post(new Runnable() {
                                     @Override
-                                    public  void run() {
+                                    public void run() {
                                         result.notImplemented();
                                     }
                                 });
@@ -135,6 +146,20 @@ public class FlutterPluginPdfViewerPlugin implements MethodChannel.MethodCallHan
                         }
                     }
                 });
+    }
+
+    private boolean checkPasswordProtectedPDF(final MethodCall call) {
+        try {
+            byte[] bytes = call.arguments();
+            try {
+                PDDocument pdDocument = PDDocument.load(bytes);
+                bool encrypted = pdDocument.isEncrypted;
+            } catch (InvalidPasswordException ex) {
+                result.success(true);
+            }
+        } catch (Exception ex) {
+            result.success(false);
+        }
     }
 
     private String getNumberOfPages(String filePath) {
