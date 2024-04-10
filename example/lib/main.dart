@@ -105,7 +105,11 @@ class _MyAppState extends State<MyApp> {
                         ? Center(child: CircularProgressIndicator())
                         : PDFViewer(
                             document: document!,
+                            maxScale: 3,
                             zoomSteps: 1,
+                            showIndicator: true,
+                            panLimit: 13,
+                            // pagePickerColor: Colors.red,
                             //uncomment below line to preload all pages
                             // lazyLoad: false,
                             // uncomment below line to scroll vertically
@@ -114,6 +118,7 @@ class _MyAppState extends State<MyApp> {
                             // enableSwipeNavigation: false,
                             showPicker: true,
                             showNavigation: true,
+                            showDialogForPagePicker: true,
                             //uncomment below code to replace bottom navigation with your own
                             /* navigationBuilder:
                             (context, page, totalPages, jumpToPage, animateToPage) {
